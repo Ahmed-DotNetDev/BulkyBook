@@ -1,4 +1,5 @@
 using BulkyBookWeb.Data;
+using BulkyBookWeb.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulkyBookWeb
@@ -19,7 +20,7 @@ namespace BulkyBookWeb
 
 
 
-
+            builder.Services.AddScoped<IService, Service>();
 
             var app = builder.Build();
 

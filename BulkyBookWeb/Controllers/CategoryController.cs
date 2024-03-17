@@ -1,5 +1,6 @@
 ﻿using BulkyBookWeb.Data;
 using BulkyBookWeb.Models;
+using BulkyBookWeb.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Controllers
@@ -7,10 +8,12 @@ namespace BulkyBookWeb.Controllers
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly IService _service;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(ApplicationDbContext db, IService service)
         {
             this._db = db;
+            this._service = service;
         }
         public IActionResult Index()
         {
@@ -46,13 +49,14 @@ namespace BulkyBookWeb.Controllers
             return View(obj);
         }
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var selectedCategory = _db.categories.Find(id);
+            //var selectedCategory = _db.categories.Find(id);
+            var selectedCategory = _service.Finder(id);
             if (selectedCategory == null)
             {
                 return NotFound();
