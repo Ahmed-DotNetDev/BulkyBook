@@ -19,6 +19,10 @@ namespace BulkyBookWeb.Controllers
 
             return View(ojbCategoryList);
         }
+        public ActionResult Result(string searching)
+        {
+            return View(_db.categories.Where(x => x.Name.Contains(searching) || searching == null).ToList());
+        }
         //GET
         public IActionResult Create()
         {
